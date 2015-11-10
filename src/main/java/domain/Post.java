@@ -17,4 +17,12 @@ public class Post {
     public String getAuthor() {
         return author;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }
