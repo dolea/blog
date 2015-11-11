@@ -5,26 +5,32 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 public class PublishPostUseCaseTest {
     @Test
     public void publishPost() {
-        String text = "an article";
+        Post post = new Post("first title", "first text");
+
         Repository repo = new Repository();
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-        String id = publishPostUc.publish(text);
+        String id = publishPostUc.publish(post.getTitle(), post.getText());
 
-        Assert.assertThat(repo.read(id), Matchers.equalTo(text));
+        Assert.assertThat(repo.read(id), Matchers.equalTo(post));
     }
 
     @Test
     public void publishTwoPosts() {
-        String text1 = "first article";
-        String text2 = "second article";
+        Post post1 = new Post("first title", "first text");
+        Post post2 = new Post("second title", "second text");
+
         Repository repo = new Repository();
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-        publishPostUc.publish(text1);
-        publishPostUc.publish(text2);
 
-        Assert.assertThat(repo.readAll(), Matchers.contains(text1, text2));
+        publishPostUc.publish(post1.getTitle(), post1.getText());
+        publishPostUc.publish(post2.getTitle(), post2.getText());
+
+        //TODO: order dependant
+        Assert.assertThat(repo.readAll(), Matchers.<Post>contains(post2, post1));
     }
 }

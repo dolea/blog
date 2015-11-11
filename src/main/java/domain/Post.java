@@ -1,34 +1,26 @@
 package domain;
 
-import java.util.Date;
-
 public class Post {
 
-    private String author;
     private String title;
-    private Date date;
-    private String body;
+    private String text;
 
-    public Post(String author, String title, Date date, String body) {
-        this.author = author;
+    public Post(String title, String text) {
         this.title = title;
-        this.date = date;
-        this.body = body;
-    }
-
-    public String getAuthor() {
-        return author;
+        this.text = text;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Date getDate() {
-        return date;
+    public String getText() {
+        return text;
     }
 
-    public String getBody() {
-        return body;
+    @Override
+    public boolean equals(Object obj) {
+        Post post = (Post)obj;
+        return title.equals(post.title) && text.equals(post.text);
     }
 }

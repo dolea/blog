@@ -10,11 +10,11 @@ public class ReadPostUseCaseTest {
     @Test
     public void read_GivenValidId() {
         Repository repo = new Repository();
-        String text = "Lerolero";
-        String id = repo.save(text);
+        Post post = new Post("Lorem", "Ipsum");
+        String id = repo.save(post.getTitle(), post.getText());
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
 
-        Assert.assertThat(readPostUseCase.read(id), Matchers.equalTo(text));
+        Assert.assertThat(readPostUseCase.read(id), Matchers.equalTo(post));
     }
 
     @Test
@@ -27,25 +27,26 @@ public class ReadPostUseCaseTest {
 
     @Test
     public void read_GivenTwoPosts_RetrieveSecond() {
-        String text1 = "first article";
-        String text2 = "second article";
         Repository repo = new Repository();
-        repo.save(text1);
-        String id2 = repo.save(text2);
+        repo.save("first title", "first article");
+
+        Post post2 = new Post("second title", "second text");
+        String id2 = repo.save(post2.getTitle(), post2.getText());
 
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
-        Assert.assertThat(readPostUseCase.read(id2), Matchers.equalTo(text2));
+        Assert.assertThat(readPostUseCase.read(id2), Matchers.equalTo(post2));
     }
 
     @Test
     public void readAll() {
-        String text1 = "first article";
-        String text2 = "second article";
+        Post post1 = new Post("first title", "first text");
+        Post post2 = new Post("second title", "second text");
         Repository repo = new Repository();
-        repo.save(text1);
-        repo.save(text2);
+        repo.save(post1.getTitle(), post1.getText());
+        repo.save(post2.getTitle(), post2.getText());
 
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
-        Assert.assertThat(readPostUseCase.readAll(), Matchers.contains(text1, text2));
+        //TODO: Order dependant
+        Assert.assertThat(readPostUseCase.readAll(), Matchers.<Post>contains(post2, post1));
     }
 }

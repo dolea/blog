@@ -1,24 +1,20 @@
 package infrastructure;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import domain.Post;
+
+import java.util.*;
 
 public class Repository {
 
     private Map<String, String> posts = new HashMap<>();
-    private Integer publishCounter = 0;
 
-    public String save(String text) {
-        String id = this.generateNextId();
-        posts.put(id, text);
-
-        return id;
+    public String save(String title, String text) {
+        posts.put(title, text);
+        return title;
     }
 
-    public List<String> readAll() {
-        List<String> texts = new ArrayList<>();
+    public List<Post> readAll() {
+        List<Post> texts = new ArrayList<>();
         for (String key: posts.keySet()) {
             texts.add(this.read(key));
         }
@@ -26,12 +22,10 @@ public class Repository {
         return texts;
     }
 
-    public String read(String id) {
-        return posts.get(id);
-    }
-
-    private String generateNextId() {
-        publishCounter++;
-        return publishCounter.toString();
+    public Post read(String title) {
+        if(posts.containsKey(title)) {
+            return new Post(title, posts.get(title));
+        }
+        return null;
     }
 }

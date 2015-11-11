@@ -1,5 +1,6 @@
 package infrastructure;
 
+import domain.Post;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,21 +11,23 @@ public class RepositoryTest {
     public void save() {
         Repository repo = new Repository();
         String text = "Lorem";
-        String id = repo.save(text);
-        Assert.assertNotNull(id);
+        String title = "Ipsum";
+        String id = repo.save(title, text);
+        Assert.assertThat(id, Matchers.equalTo(title));
     }
 
     @Test
-    public void readInvalidId() {
+    public void readInvalidTitle() {
         Repository repo = new Repository();
         Assert.assertNull(repo.read("invalid"));
     }
 
     @Test
-    public void readValidId() {
+    public void readValidTitle() {
         Repository repo = new Repository();
-        String text = "Lerom";
-        String id = repo.save(text);
-        Assert.assertThat(repo.read(id), Matchers.equalTo(text));
+        String text = "Dolor";
+        String title = "Sit";
+        repo.save(title, text);
+        Assert.assertThat(repo.read(title).getText(), Matchers.equalTo(text));
     }
 }
