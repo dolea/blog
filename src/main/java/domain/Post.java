@@ -7,11 +7,13 @@ public class Post {
     private String author;
     private String title;
     private Date date;
+    private String body;
 
-    public Post(String author, String title, Date date) {
+    public Post(String author, String title, Date date, String body) {
         this.author = author;
         this.title = title;
         this.date = date;
+        this.body = body;
     }
 
     public String getAuthor() {
@@ -24,5 +26,9 @@ public class Post {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getBody() {
+        return body;
     }
 }
