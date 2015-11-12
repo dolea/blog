@@ -9,7 +9,7 @@ public class PublishPostUseCase {
         this.repo = repo;
     }
 
-    public String publish(Post post) {
-        return repo.save(post);
+    public void publish(Post post) {
+        repo.save(post);
     }
 }

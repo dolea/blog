@@ -26,10 +26,10 @@ public class ReadPostUseCaseTest {
     @Test
     public void read_GivenARepoWithAPost_WhenReadByPostId_ThenPostShouldReturn() {
         Post post = new Post("Lorem", "Ipsum");
-        String id = repo.save(post);
+        repo.save(post);
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
 
-        Assert.assertThat(readPostUseCase.read(id), Matchers.equalTo(post));
+        Assert.assertThat(readPostUseCase.read(post.getTitle()), Matchers.equalTo(post));
     }
 
     @Test
@@ -44,10 +44,10 @@ public class ReadPostUseCaseTest {
 
         repo.save(new Post("first title", "first article"));
         Post post2 = new Post("second title", "second text");
-        String id2 = repo.save(post2);
+        repo.save(post2);
 
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
-        Assert.assertThat(readPostUseCase.read(id2), Matchers.equalTo(post2));
+        Assert.assertThat(readPostUseCase.read(post2.getTitle()), Matchers.equalTo(post2));
     }
 
     @Test

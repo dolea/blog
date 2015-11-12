@@ -15,9 +15,9 @@ public class PublishPostUseCaseTest {
     public void publish_GivenAPost_WhenPublish_ThenRepositoryShouldContainPost() {
         Repository repo = new Repository(REPO_PATH, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-        String id = publishPostUc.publish(post);
+        publishPostUc.publish(post);
 
-        Assert.assertThat(repo.read(id), Matchers.equalTo(post));
+        Assert.assertThat(repo.read(post.getTitle()), Matchers.equalTo(post));
     }
 
     @Test

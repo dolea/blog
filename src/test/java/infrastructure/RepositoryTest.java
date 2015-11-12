@@ -23,15 +23,6 @@ public class RepositoryTest {
     }
 
     @Test
-    public void save_GivenAPost_WhenSaved_ThenPostIdShouldReturn() {
-        String title = "Lorem";
-        Post post = new Post(title, "Sit");
-        String id = repo.save(post);
-
-        Assert.assertThat(id, Matchers.equalTo(title));
-    }
-
-    @Test
     public void read_GivenATitleNotStored_WhenReadById_ThenShouldReturnNull() {
         Assert.assertNull(repo.read("invalid"));
     }
@@ -55,8 +46,7 @@ public class RepositoryTest {
 
         Post post1 = new Post("Sxs", "Sxss");
         Post post2 = new Post("Ass", "Ssa");
-        repo2.save(post1);
-        repo2.save(post2);
+        repo2.save(post1, post2);
 
         Assert.assertThat(repo2.readAll(), Matchers.contains(post1, post2));
     }
