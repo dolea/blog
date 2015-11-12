@@ -23,4 +23,9 @@ public class Post {
         Post post = (Post)obj;
         return title.equals(post.title) && text.equals(post.text);
     }
+
+    @Override
+    public String toString() {
+        return title + " " + text;
+    }
 }

@@ -1,6 +1,7 @@
 package infrastructure;
 
 import domain.Post;
+import domain.Repository;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -10,22 +11,24 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
-public class Repository {
+//TODO: exceptions
+public class FileRepository implements Repository {
 
     private static final String DEFAULT_PATH = "./repo.txt";
 
     private OpenOption[] openOptions;
     private String path;
 
-    public Repository(){
+    public FileRepository(){
         this(DEFAULT_PATH, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
-    public Repository(String path, OpenOption... options) {
+    public FileRepository(String path, OpenOption... options) {
         this.path = path;
         openOptions = options;
     }
 
+    @Override
     public void save(Post... posts) {
         String adaptedPost = "";
         for(Post post: posts) {
@@ -39,6 +42,7 @@ public class Repository {
         }
     }
 
+    @Override
     public List<Post> readAll() {
         List<Post> texts = new ArrayList<>();
 
@@ -54,6 +58,7 @@ public class Repository {
         return texts;
     }
 
+    @Override
     public Post read(String title) {
         List<Post> posts = this.readAll();
 

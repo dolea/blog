@@ -1,7 +1,5 @@
 package domain;
 
-import infrastructure.Repository;
-
 public class PublishPostUseCase {
     private Repository repo;
 

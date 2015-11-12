@@ -1,35 +1,27 @@
 package domain;
 
-import infrastructure.Repository;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.nio.file.StandardOpenOption;
+import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PublishPostUseCaseTest {
-    private static final String REPO_PATH = "./test_repo.txt";
-    private Post post = new Post("first title", "first text");
+
+    @Mock
+    private Repository repo;
+    @InjectMocks
+    private PublishPostUseCase publishPostUseCase;
 
     @Test
-    public void publish_GivenAPost_WhenPublish_ThenRepositoryShouldContainPost() {
-        Repository repo = new Repository(REPO_PATH, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-        publishPostUc.publish(post);
+    public void givenAPost_WhenPublish_ThenSaveShouldBeCalled() {
+        Post post = new Post("first title", "first text");
 
-        Assert.assertThat(repo.read(post.getTitle()), Matchers.equalTo(post));
-    }
+        publishPostUseCase.publish(post);
 
-    @Test
-    public void publish_GivenAPost_WhenAppended_TheRepositoryShouldContainBothPosts() {
-        Post post2 = new Post("second title", "second text");
-
-        Repository repo = new Repository(REPO_PATH, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-
-        publishPostUc.publish(post2);
-
-        //TODO: order dependant
-        Assert.assertThat(repo.readAll(), Matchers.<Post>contains(post, post2));
+        verify(repo).save(eq(post));
     }
 }

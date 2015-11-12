@@ -1,6 +1,6 @@
 package domain;
 
-import infrastructure.Repository;
+import infrastructure.FileRepository;
 
 import java.util.List;
 
