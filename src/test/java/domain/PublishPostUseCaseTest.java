@@ -12,7 +12,7 @@ public class PublishPostUseCaseTest {
     private Post post = new Post("first title", "first text");
 
     @Test
-    public void publishPost() {
+    public void publish_GivenAPost_WhenPublish_ThenRepositoryShouldContainPost() {
         Repository repo = new Repository(REPO_PATH, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
         String id = publishPostUc.publish(post.getTitle(), post.getText());
@@ -21,7 +21,7 @@ public class PublishPostUseCaseTest {
     }
 
     @Test
-    public void publish_AppendNewPost() {
+    public void publish_GivenAPost_WhenAppended_TheRepositoryShouldContainBothPosts() {
         Post post2 = new Post("second title", "second text");
 
         Repository repo = new Repository(REPO_PATH, StandardOpenOption.CREATE, StandardOpenOption.APPEND);

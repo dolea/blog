@@ -22,7 +22,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void save() {
+    public void save_GivenAPost_WhenSaved_ThenPostIdShouldReturn() {
         String text = "Lorem";
         String title = "Ipsum";
         String id = repo.save(title, text);
@@ -30,12 +30,12 @@ public class RepositoryTest {
     }
 
     @Test
-    public void readInvalidTitle() {
+    public void read_GivenATitleNotStored_WhenReadById_ThenShouldReturnNull() {
         Assert.assertNull(repo.read("invalid"));
     }
 
     @Test
-    public void readValidTitle() {
+    public void read_GivenATitleStored_WhenReadByPostId_ThenShouldReturnPost() {
         String text = "Dolor";
         String title = "Sit";
         repo.save(title, text);
@@ -43,7 +43,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void readValidTitle_GivenTwoPost() {
+    public void read_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() {
         Repository repo2 = new Repository(
                 "./test_repo.txt",
                 StandardOpenOption.CREATE,
