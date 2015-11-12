@@ -2,6 +2,7 @@ package infrastructure;
 
 import domain.Post;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class RepositoryTest {
         Repository repo2 = new Repository(
                 "./test_read_post_repo2.txt",
                 StandardOpenOption.CREATE,
-                StandardOpenOption.APPEND
+                StandardOpenOption.WRITE
         );
 
         Post post1 = new Post("Sxs", "Sxss");

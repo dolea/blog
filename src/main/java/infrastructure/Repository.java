@@ -27,13 +27,15 @@ public class Repository {
     }
 
     public void save(Post... posts) {
+        String adaptedPost = "";
         for(Post post: posts) {
-            String adaptedPost = post.getTitle() + '\0' + post.getText() + '\n';
-            try {
-                Files.write(Paths.get(path), adaptedPost.getBytes(), openOptions);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            adaptedPost += post.getTitle() + '\0' + post.getText() + '\n';
+        }
+
+        try {
+            Files.write(Paths.get(path), adaptedPost.getBytes(), openOptions);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
