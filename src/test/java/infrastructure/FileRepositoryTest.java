@@ -2,24 +2,22 @@ package infrastructure;
 
 import domain.Post;
 import org.hamcrest.Matchers;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
+import java.io.File;
 import java.nio.file.StandardOpenOption;
 
-public class RepositoryTest {
+public class FileRepositoryTest {
+    private static final String TEST_REPO_PATH = "./test_repo.txt";
 
-    private Repository repo;
+    private FileRepository repo;
 
     @Before
     public void initialize() {
-        repo = new Repository(
-                "./test_repo.txt",
+        repo = new FileRepository(
+                TEST_REPO_PATH,
                 StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE,
-                StandardOpenOption.TRUNCATE_EXISTING
+                StandardOpenOption.WRITE
         );
     }
 
@@ -39,16 +37,16 @@ public class RepositoryTest {
 
     @Test
     public void readAll_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() {
-        Repository repo2 = new Repository(
-                "./test_read_post_repo2.txt",
-                StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE
-        );
-
         Post post1 = new Post("Sxs", "Sxss");
         Post post2 = new Post("Ass", "Ssa");
-        repo2.save(post1, post2);
+        repo.save(post1, post2);
 
-        Assert.assertThat(repo2.readAll(), Matchers.contains(post1, post2));
+        Assert.assertThat(repo.readAll(), Matchers.contains(post1, post2));
+    }
+
+    @AfterClass
+    public static void clean() {
+        File file = new File(TEST_REPO_PATH);
+        file.delete();
     }
 }
