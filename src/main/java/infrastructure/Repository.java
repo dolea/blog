@@ -26,14 +26,15 @@ public class Repository {
         openOptions = options;
     }
 
-    public String save(String title, String text) {
-        String post = title + '\0' + text + '\n';
+    public String save(Post post) {
+        String adaptedPost = post.getTitle() + '\0' + post.getText() + '\n';
         try {
-            Files.write(Paths.get(path), post.getBytes(), openOptions);
+            Files.write(Paths.get(path), adaptedPost.getBytes(), openOptions);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return title;
+
+        return post.getTitle();
     }
 
     public List<Post> readAll() {

@@ -1,5 +1,6 @@
 package infrastructure;
 
+import domain.Post;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,9 +24,10 @@ public class RepositoryTest {
 
     @Test
     public void save_GivenAPost_WhenSaved_ThenPostIdShouldReturn() {
-        String text = "Lorem";
-        String title = "Ipsum";
-        String id = repo.save(title, text);
+        String title = "Lorem";
+        Post post = new Post(title, "Sit");
+        String id = repo.save(post);
+
         Assert.assertThat(id, Matchers.equalTo(title));
     }
 
@@ -36,24 +38,26 @@ public class RepositoryTest {
 
     @Test
     public void read_GivenATitleStored_WhenReadByPostId_ThenShouldReturnPost() {
-        String text = "Dolor";
-        String title = "Sit";
-        repo.save(title, text);
-        Assert.assertThat(repo.read(title).getText(), Matchers.equalTo(text));
+        String title = "Dolor";
+        Post post = new Post(title, "Sit");
+        repo.save(post);
+
+        Assert.assertThat(repo.read(title), Matchers.equalTo(post));
     }
 
     @Test
-    public void read_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() {
+    public void readAll_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() {
         Repository repo2 = new Repository(
-                "./test_repo.txt",
+                "./test_read_post_repo2.txt",
                 StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND
         );
 
-        String text = "Xaz";
-        String title = "zaX";
-        repo2.save(title, text);
-        repo2.save("xxx", "zzz");
-        Assert.assertThat(repo2.read(title).getText(), Matchers.equalTo(text));
+        Post post1 = new Post("Sxs", "Sxss");
+        Post post2 = new Post("Ass", "Ssa");
+        repo2.save(post1);
+        repo2.save(post2);
+
+        Assert.assertThat(repo2.readAll(), Matchers.contains(post1, post2));
     }
 }

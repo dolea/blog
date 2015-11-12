@@ -26,7 +26,7 @@ public class ReadPostUseCaseTest {
     @Test
     public void read_GivenARepoWithAPost_WhenReadByPostId_ThenPostShouldReturn() {
         Post post = new Post("Lorem", "Ipsum");
-        String id = repo.save(post.getTitle(), post.getText());
+        String id = repo.save(post);
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
 
         Assert.assertThat(readPostUseCase.read(id), Matchers.equalTo(post));
@@ -42,9 +42,9 @@ public class ReadPostUseCaseTest {
     @Test
     public void read_GivenTwoPosts_WhenReadBySecondId_ThenSecondPostShouldReturn() {
 
-        repo.save("first title", "first article");
+        repo.save(new Post("first title", "first article"));
         Post post2 = new Post("second title", "second text");
-        String id2 = repo.save(post2.getTitle(), post2.getText());
+        String id2 = repo.save(post2);
 
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repo);
         Assert.assertThat(readPostUseCase.read(id2), Matchers.equalTo(post2));
@@ -53,11 +53,11 @@ public class ReadPostUseCaseTest {
     @Test
     public void readAll_GivenTwoPostStored_WhenReadAll_ThenTwoPostsShouldReturn() {
         Post post1 = new Post("second title", "second text");
-        repo.save(post1.getTitle(), post1.getText());
+        repo.save(post1);
 
         Repository repoAppendable = new Repository(REPO_PATH, StandardOpenOption.APPEND);
         Post post2 = new Post("second title", "second text");
-        repoAppendable.save(post2.getTitle(), post2.getText());
+        repoAppendable.save(post2);
 
         ReadPostUseCase readPostUseCase = new ReadPostUseCase(repoAppendable);
         //TODO: Order dependant

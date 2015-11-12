@@ -15,7 +15,7 @@ public class PublishPostUseCaseTest {
     public void publish_GivenAPost_WhenPublish_ThenRepositoryShouldContainPost() {
         Repository repo = new Repository(REPO_PATH, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
-        String id = publishPostUc.publish(post.getTitle(), post.getText());
+        String id = publishPostUc.publish(post);
 
         Assert.assertThat(repo.read(id), Matchers.equalTo(post));
     }
@@ -27,7 +27,7 @@ public class PublishPostUseCaseTest {
         Repository repo = new Repository(REPO_PATH, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         PublishPostUseCase publishPostUc = new PublishPostUseCase(repo);
 
-        publishPostUc.publish(post2.getTitle(), post2.getText());
+        publishPostUc.publish(post2);
 
         //TODO: order dependant
         Assert.assertThat(repo.readAll(), Matchers.<Post>contains(post, post2));
