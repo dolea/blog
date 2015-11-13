@@ -3,8 +3,6 @@ package infrastructure;
 import domain.Post;
 import domain.PublishPostUseCase;
 import domain.ReadPostUseCase;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,7 +25,7 @@ public class RestManagerTest {
     private RestManager restManager;
 
     @Test
-    public void GivenAPost_WhenGetPostIsCalledWithId_ThenReadShouldBeCalledWithId(){
+    public void GivenAPost_WhenGetPostIsCalledWithId_ThenReadShouldBeCalledWithId() throws IOException {
         String title = "title";
         when(readPostUseCase.read(title)).thenReturn(any(Post.class));
 
@@ -36,7 +35,7 @@ public class RestManagerTest {
     }
 
     @Test
-    public void GivenAListOfPosts_WhenGetPosts_ThenReadAllShouldBeCalled() {
+    public void GivenAListOfPosts_WhenGetPosts_ThenReadAllShouldBeCalled() throws IOException {
         when(readPostUseCase.readAll()).thenReturn(new ArrayList<>());
 
         restManager.getPosts();
@@ -45,7 +44,7 @@ public class RestManagerTest {
     }
 
     @Test
-    public void GivenATitleAndAText_WhenPostPostIsCalled_ThenPublishShouldBeCalled() {
+    public void GivenATitleAndAText_WhenPostPostIsCalled_ThenPublishShouldBeCalled() throws IOException {
         String title = "title4";
         String text = "text4";
 

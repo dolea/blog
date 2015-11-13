@@ -1,5 +1,7 @@
 package domain;
 
+import java.io.IOException;
+
 public class PublishPostUseCase {
     private Repository repo;
 
@@ -7,7 +9,7 @@ public class PublishPostUseCase {
         this.repo = repo;
     }
 
-    public void publish(Post post) {
+    public void publish(Post post) throws IOException {
         repo.save(post);
     }
 }

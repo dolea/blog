@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ReadPostUseCaseTest {
     private ReadPostUseCase readPostUseCase;
 
     @Test
-    public void givenAPost_whenReadByPostId_ThenPostShouldReturn() {
+    public void givenAPost_whenReadByPostId_ThenPostShouldReturn() throws IOException {
         String title = "Lorem";
         Post post = new Post(title, "Ipsum");
 
@@ -31,7 +32,7 @@ public class ReadPostUseCaseTest {
     }
 
     @Test
-    public void givenTwoPosts_WhenReadAll_ThenTwoPostsShouldReturn() {
+    public void givenTwoPosts_WhenReadAll_ThenTwoPostsShouldReturn() throws IOException {
         List<Post> posts = new ArrayList<>();
         posts.add(new Post("title", "text"));
         posts.add(new Post("title", "text"));

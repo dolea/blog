@@ -1,7 +1,6 @@
 package domain;
 
-import infrastructure.FileRepository;
-
+import java.io.IOException;
 import java.util.List;
 
 public class ReadPostUseCase {
@@ -13,11 +12,11 @@ public class ReadPostUseCase {
         this.repo = repo;
     }
 
-    public List<Post> readAll() {
+    public List<Post> readAll() throws IOException {
         return repo.readAll();
     }
 
-    public Post read(String id) {
+    public Post read(String id) throws IOException {
         return repo.read(id);
     }
 }

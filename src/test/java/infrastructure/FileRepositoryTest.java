@@ -5,6 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.StandardOpenOption;
 
 public class FileRepositoryTest {
@@ -22,12 +23,12 @@ public class FileRepositoryTest {
     }
 
     @Test
-    public void read_GivenATitleNotStored_WhenReadById_ThenShouldReturnNull() {
+    public void read_GivenATitleNotStored_WhenReadById_ThenShouldReturnNull() throws IOException {
         Assert.assertNull(repo.read("invalid"));
     }
 
     @Test
-    public void read_GivenATitleStored_WhenReadByPostId_ThenShouldReturnPost() {
+    public void read_GivenATitleStored_WhenReadByPostId_ThenShouldReturnPost() throws IOException {
         String title = "Dolor";
         Post post = new Post(title, "Sit");
         repo.save(post);
@@ -36,7 +37,7 @@ public class FileRepositoryTest {
     }
 
     @Test
-    public void readAll_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() {
+    public void readAll_GivenTwoPosts_WhenReadAll_ThenBothPostsShouldAppear() throws IOException {
         Post post1 = new Post("Sxs", "Sxss");
         Post post2 = new Post("Ass", "Ssa");
         repo.save(post1, post2);

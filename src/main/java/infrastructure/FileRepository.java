@@ -8,20 +8,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
-//TODO: exceptions
 public class FileRepository implements Repository {
-
-    private static final String DEFAULT_PATH = "./repo.txt";
 
     private OpenOption[] openOptions;
     private String path;
-
-    public FileRepository(){
-        this(DEFAULT_PATH, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-    }
 
     public FileRepository(String path, OpenOption... options) {
         this.path = path;
@@ -29,37 +21,29 @@ public class FileRepository implements Repository {
     }
 
     @Override
-    public void save(Post... posts) {
+    public void save(Post... posts) throws IOException {
         String adaptedPost = "";
         for(Post post: posts) {
             adaptedPost += post.getTitle() + '\0' + post.getText() + '\n';
         }
 
-        try {
-            Files.write(Paths.get(path), adaptedPost.getBytes(), openOptions);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Files.write(Paths.get(path), adaptedPost.getBytes(), openOptions);
     }
 
     @Override
-    public List<Post> readAll() {
+    public List<Post> readAll() throws IOException {
         List<Post> texts = new ArrayList<>();
 
-        try {
-            for (String line : Files.readAllLines(Paths.get(path), Charset.defaultCharset())) {
-                String[] parts = line.split("\0");
-                texts.add(new Post(parts[0], parts[1]));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (String line : Files.readAllLines(Paths.get(path), Charset.defaultCharset())) {
+            String[] parts = line.split("\0");
+            texts.add(new Post(parts[0], parts[1]));
         }
 
         return texts;
     }
 
     @Override
-    public Post read(String title) {
+    public Post read(String title) throws IOException {
         List<Post> posts = this.readAll();
 
         for(Post post: posts) {
@@ -67,6 +51,7 @@ public class FileRepository implements Repository {
                 return post;
             }
         }
+
         return null;
     }
 }

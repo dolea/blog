@@ -4,6 +4,7 @@ import domain.Post;
 import domain.PublishPostUseCase;
 import domain.ReadPostUseCase;
 
+import java.io.IOException;
 import java.util.List;
 
 public class RestManager {
@@ -17,14 +18,28 @@ public class RestManager {
     }
 
     public List<Post> getPosts() {
-        return readPostUseCase.readAll();
+        try {
+            return readPostUseCase.readAll();
+        } catch (IOException e) {
+            //TODO:
+            return null;
+        }
     }
 
     public Post getPost(String id) {
-        return readPostUseCase.read(id);
+        try {
+            return readPostUseCase.read(id);
+        } catch (IOException e) {
+            //TODO:
+            return null;
+        }
     }
 
     public void postPost(String title, String text) {
-        publishPostUseCase.publish(new Post(title, text));
+        try {
+            publishPostUseCase.publish(new Post(title, text));
+        } catch (IOException e) {
+            //TODO:
+        }
     }
 }
