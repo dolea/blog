@@ -1,6 +1,6 @@
-package infrastructure;
+package blog.infrastructure;
 
-import domain.Post;
+import blog.domain.Post;
 import org.hamcrest.Matchers;
 import org.junit.*;
 

@@ -1,4 +1,4 @@
-package domain;
+package blog.domain;
 
 public class Post {
 

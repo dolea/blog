@@ -1,6 +1,4 @@
-package domain;
-
-import infrastructure.FileRepository;
+package blog.domain;
 
 import java.util.List;
 

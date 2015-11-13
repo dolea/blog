@@ -1,8 +1,8 @@
-package infrastructure;
+package blog.infrastructure;
 
-import domain.Post;
-import domain.PublishPostUseCase;
-import domain.ReadPostUseCase;
+import blog.domain.Post;
+import blog.domain.PublishPostUseCase;
+import blog.domain.ReadPostUseCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

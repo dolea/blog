@@ -1,7 +1,7 @@
-package infrastructure;
+package blog.infrastructure;
 
-import domain.Post;
-import domain.Repository;
+import blog.domain.Post;
+import blog.domain.Repository;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

@@ -1,4 +1,6 @@
-package domain;
+package blog.domain;
+
+import blog.domain.Post;
 
 import java.util.List;
 

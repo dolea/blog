@@ -1,4 +1,4 @@
-package domain;
+package blog.domain;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package domain;
+package blog.domain;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
